@@ -2,6 +2,8 @@
 yarn.lock
 yarn-error.log
 
+.env
+
 package-lock.json
 
 docker/docker-compose.yml
