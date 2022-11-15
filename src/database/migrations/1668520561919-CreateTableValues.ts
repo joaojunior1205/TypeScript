@@ -23,14 +23,23 @@ export class CreateTableValues1668520561919 implements MigrationInterface {
                     {
                         name: "user_id",
                         type: "uuid"
+                    },
+                    {
+                        name: "created_at",
+                        type: "timestamp",
+                        default: "now()"
+                    },
+                    {
+                        name: "update_at",
+                        type: "timestamp",
+                        isNullable: true,
                     }
-                    
                 ],
                 foreignKeys: [
                     {
                         name: "fk_user_id",
                         columnNames: ["user_id"],
-                        referencedTableName: "user",
+                        referencedTableName: "users",
                         referencedColumnNames: ["id"],
                     }
                 ]

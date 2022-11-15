@@ -1,6 +1,9 @@
+import 'reflect-metadata';
 import { DataSource } from "typeorm";
-import { CreateTableUser1668517173693 } from "./src/migrations/1668517173693-CreateTableUser";
-import { CreateTableValues1668520561919 } from "./src/migrations/1668520561919-CreateTableValues";
+import { CreateTableUser1668517173693 } from "./src/database/migrations/1668517173693-CreateTableUser";
+import { CreateTableValues1668520561919 } from "./src/database/migrations/1668520561919-CreateTableValues";
+import { Users } from "./src/entities/userEntity";
+import { Values } from "./src/entities/valueEntity";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -11,7 +14,21 @@ export const AppDataSource = new DataSource({
     database: "postgres",
     synchronize: true,
     logging: true,
-    entities: [],
+    entities: [
+        Users,
+        Values
+    ],
     subscribers: [],
-    migrations: [CreateTableUser1668517173693, CreateTableValues1668520561919],
+    migrations: [
+        CreateTableUser1668517173693,
+        CreateTableValues1668520561919
+    ],
 })
+
+export async function startDB() {
+    try {
+        await AppDataSource.initialize();
+    } catch (err) {
+        console.error("Error during Data Source initialization", err);
+    }
+}
