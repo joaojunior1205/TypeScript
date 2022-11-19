@@ -5,6 +5,7 @@ import {
     PrimaryColumn,
 } from "typeorm";
 import  {v4 as uuid} from "uuid";
+import { v5 as uuid_token } from "uuid";
 
 @Entity("users")
 export class Users {
@@ -15,10 +16,16 @@ export class Users {
     name: string;
 
     @Column()
-    lastName: string;
+    last_name: string;
 
     @Column()
     email: string;
+
+    @Column()
+    password: string;
+
+    @Column()
+    token: string;
 
     @CreateDateColumn()
     created_at: Date;
@@ -29,6 +36,13 @@ export class Users {
     constructor() {
         if (!this.id) {
             this.id = uuid()
+        }
+
+        if (!this.token) {
+            const date = new Date();
+            let timezone =  date.getTimezoneOffset()
+
+            this.token = `${this.id}${timezone}`;
         }
     }
 }
