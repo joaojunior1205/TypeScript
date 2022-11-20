@@ -14,13 +14,16 @@ export class CreateUserService {
         const passwordHash = await hash(password, 8); // cryptografia da senha, recebe o param senha e indica o nível, que no caso é 8.
         
         const repo = AppDataSource.getRepository(Users);
+
+        var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+
         const newUser = repo.create({
             name, 
             last_name, 
             email, 
             password: passwordHash, 
-            update_at: new Date(), 
-            created_at: new Date()
+            update_at: (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1),
+            created_at: (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1),
         });
 
         if (await repo.findOneBy({ email })) {
