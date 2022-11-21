@@ -11,6 +11,22 @@ type UserRequest = {
 
 export class CreateUserService {
     async execute({ name, last_name, email, password }: UserRequest): Promise<Users | Error> {
+        if (!password) {
+            return new Error('Insert password!');
+        }
+
+        if (!name) {
+            return new Error('Insert name!');
+        }
+
+        if (!last_name) {
+            return new Error('Insert last name!');
+        }
+
+        if (!email) {
+            return new Error('Insert email!');
+        }
+
         const passwordHash = await hash(password, 8); // cryptografia da senha, recebe o param senha e indica o nível, que no caso é 8.
         
         const repo = AppDataSource.getRepository(Users);
