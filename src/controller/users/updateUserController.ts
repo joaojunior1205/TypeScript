@@ -16,5 +16,6 @@ export class UpdateUserController {
         const result = await service.execute({id, name, last_name, email, password});
 
         return res.json(result);
+        
     }
 }
