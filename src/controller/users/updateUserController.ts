@@ -18,4 +18,6 @@ export class UpdateUserController {
         return res.json(result);
         
     }
+
+    ERROR
 }
